@@ -1,0 +1,140 @@
+.js {
+    display: none;
+}
+
+body {
+    padding-top: 15px;
+    line-height: 1.2;
+}
+
+body.disable-scrolling {
+    height: 100%;
+    overflow: hidden;
+}
+
+@media (min-width: 800px) {
+    body {
+        padding-top: 50px;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.overlay {
+    background-color: black;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+
+/* client viewer */
+
+.client-container {
+    background-color: white;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    width: 478px;
+    padding: 17px;
+    border-radius: 5px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -51%);
+    overflow: hidden;
+    z-index: 11;
+}
+
+.client-container h2 {
+    color: #575757;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: none;
+    position: relative;
+    margin: 25px 0;
+    padding: 0;
+    line-height: 40px;
+    display: block;
+}
+
+.client-container p {
+    color: #797979;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    position: relative;
+    float: none;
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+}
+
+.client-container table {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.client-container table tr td:first-child {
+    padding-right: 80px;
+}
+
+.online,
+.away {
+    padding-left: 10px;
+    font-size: 22px;
+    float: right;
+}
+
+.online {
+    color: #41AD49;
+}
+
+.away {
+    color: #ffb500;
+}
+
+.client-container .online,
+.client-container .away {
+    float: none;
+}
+
+
+/* fade animations */
+
+.fadeOut,
+.fadeIn {
+    -webkit-transition: opacity 0.4s ease-in-out;
+    -moz-transition: opacity 0.4s ease-in-out;
+    -o-transition: opacity 0.4s ease-in-out;
+    -ms-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.fadeOut {
+    opacity: 0.0;
+    animation: fadeOut 0.4s forwards;
+}
+
+.fadeIn {
+    opacity: 1.0;
+    visibility: visible;
+}
+
+@keyframes fadeOut {
+    100% {
+        visibility: hidden;
+    }
+}

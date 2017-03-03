@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>TeamSpeak Leaderboard</title>
+
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="Jonas Bögle">
+  <meta name="viewport" content="width=device-width, initial-scale=0.65">
+
+  <!-- Style -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" />
+  <link rel="stylesheet" href="css/leaderboard.css" />
+
+  <!-- Scripts -->
+  <script src="js/angular.min.js"></script>
+  <script src="js/smart-table.min.js"></script>
+  <script src="js/leaderboard.js"></script>
+</head>
+
+<body>
+  <h3 class="nojs text-center">
+    Um diese Seite zu benutzen, benötigen Sie JavaScript.<br/> Eine Anleitung wie Sie JavaScript in Ihrem Browser einschalten,
+    finden Sie
+    <a href="http://www.enable-javascript.com/de/" target="_blank">hier</a>.
+    <br/><br/><br/><br/>
+  </h3>
+
+  <div class="container" ng-app="leaderboardApp" ng-controller="mainController">
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></div>
+          <input type="text" class="form-control" placeholder="Search..." ng-model="searchClients">
+        </div>
+      </div>
+    </form>
+
+    <table st-table="clientlist" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <td>
+            <a href="#" ng-click="setSortType($event, 'nickname');">Nickname <i ng-class="getSortIcon('nickname')"></i></a>
+          </td>
+          <td>
+            <a href="#" ng-click="setSortType($event, 'totalconnections');">Connections <i ng-class="getSortIcon('totalconnections')"></i></a>
+          </td>
+          <td>
+            <a href="#" ng-click="setSortType($event, 'description');">Description <i ng-class="getSortIcon('description')"></i></a>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="client in clientlist | orderBy:sortType:sortReverse | filter:searchClients">
+          <td ng-click="showUserInfo(client.dbid);" class="nickname clickable">{{client.nickname}}<i ng-class="getStatusIcon(client)" ng-attr-title="{{getStatus(client)}}"></i></td>
+          <td>{{client.totalconnections}}</td>
+          <td>{{client.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="js overlay" ng-class="(selectedClient.show ? 'fadeIn' : 'fadeOut')" ng-click="selectedClient.show = false;" tabindex="-1"></div>
+    <div class="js client-container" ng-class="(selectedClient.show ? 'fadeIn' : 'fadeOut')">
+      <img id="avatar" ng-src="{{getAvatar(selectedClient)}}">
+      <h2>{{selectedClient.nickname}}<i ng-class="getStatusIcon(selectedClient)" ng-attr-title="{{getStatus(selectedClient)}}"></i></h2>
+      <p>{{selectedClient.description}}</p>
+      <br/>
+      <table>
+        <tr>
+          <td>Connections:</td>
+          <td>{{selectedClient.totalconnections}}</td>
+        </tr>
+        <tr>
+          <td>Joined:</td>
+          <td>{{(selectedClient.created * 1000) | date:"dd.MM.yyyy"}}</td>
+        </tr>
+        <tr>
+          <td>last Connection:</td>
+          <td>{{(selectedClient.lastconnected * 1000) | date:"dd.MM.yyyy"}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
